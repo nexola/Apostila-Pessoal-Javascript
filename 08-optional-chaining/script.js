@@ -1,0 +1,74 @@
+"use strict";
+
+const diasDaSemana = ["seg", "ter", "qua", "qui", "sex", "sab", "dom"];
+
+const openingHours = {
+  [diasDaSemana[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [diasDaSemana[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [diasDaSemana[5]]: {
+    open: 0,
+    close: 24,
+  },
+};
+
+const restaurant = {
+  name: "Classico Italiano",
+  location: "Via Angelo Tavanti 23, Firenze, Italy",
+  categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
+  starterMenu: ["Focaccia", "Bruschetta", "Garlic Bread", "Caprese Salad"],
+  mainMenu: ["Pizza", "Pasta", "Risotto"],
+
+  // ES6 object literals melhorado
+  openingHours,
+
+  order(starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderDelivery({ starterIndex = 1, mainIndex = 0, time = "20:00", address }) {
+    console.log(
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+    );
+  },
+
+  orderPasta(ing1, ing2, ing3) {
+    console.log(
+      `Here's your delicious pasta with ${ing1}, ${ing2} and ${ing3}`
+    );
+  },
+
+  orderPizza(mainIngredient, ...ingredients) {
+    console.log(mainIngredient);
+    console.log(ingredients);
+  },
+};
+
+// Sem optional chaining -> Retorna erro se não existir
+// console.log(restaurant.openingHours.seg.open);
+
+// Com optional chaining -> Retorna undefined se não existir
+console.log(restaurant.openingHours.seg?.open);
+console.log(restaurant.openingHours?.seg?.open);
+
+// Exemplo
+const dias = ["seg", "ter", "qua", "qui", "sex", "sab", "dom"];
+
+for (const dia of dias) {
+  const aberto = restaurant.openingHours[dia]?.open ?? "fechado";
+  console.log(`${dia} abrimos às ${aberto}`);
+}
+
+// Metodos
+console.log(restaurant.order?.(0, 1) ?? "Método não existe");
+console.log(restaurant.orderRisotto?.(0, 1) ?? "Método não existe");
+
+// Arrays
+const usuarios = [{ nome: "Jonas", email: "hello@jonas.com" }];
+
+console.log(usuarios[2]?.nome ?? "Array de usuários vazio");
