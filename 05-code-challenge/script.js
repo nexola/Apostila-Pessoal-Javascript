@@ -1,18 +1,20 @@
-// Criar um array de jogador para cada time (jogadores1 e jogadores2)
+/* DESAFIO 1
+ 1.1 - Criar um array de jogador para cada time (jogadores1 e jogadores2)
 
-// O primeiro jogador em cada array é o goleiro, e os outros são os jogadores de campo. para o Bayern de Munique (time 1), criar uma variável (goleiro) com o nome do goleiro, e um array (jogadoresDeLinha) para o restante
+ 1.2 - O primeiro jogador em cada array é o goleiro, e os outros são os jogadores de campo. para o Bayern de Munique (time 1), criar uma variável (goleiro) com o nome do goleiro, e um array (jogadoresDeLinha) para o restante
 
-// Criar um array (todosJogadores) contendo todos os jogadores de ambos os times
+ 1.3 - Criar um array (todosJogadores) contendo todos os jogadores de ambos os times
 
-// durante o jogo, o Bayern (time 1) fez 3 substituições. Crie um array (jogadoresFinais) contendo todos os jogadores iniciais + 'Thiago', 'Coutinho' e 'Perisic'
+ 1.4 - durante o jogo, o Bayern (time 1) fez 3 substituições. Crie um array (jogadoresFinais) contendo todos os jogadores iniciais + 'Thiago', 'Coutinho' e 'Perisic'
 
-// Baseado em game.odds, criar uma variável para cada chance ('time1', 'empate', 'time2')
+ 1.5 - Baseado em game.odds, criar uma variável para cada chance ('time1', 'empate', 'time2')
 
-// Crie uma funcao (imprimirGols) que recebe um ou mais nomes de jogadores e imprima cada um no console, juntamente com o número de gols que foram feitos (número de jogadores passados como arg)
+ 1.6 - Crie uma funcao (imprimirGols) que recebe um ou mais nomes de jogadores e imprima cada um no console, juntamente com o número de gols que foram feitos (número de jogadores passados como arg)
 
-// O time com a menor odd é mais propício a ganhar. Imprima no console qual time é mais provável que ganhe, sem usar if/else ou operador ternário
+ 1.7 - O time com a menor odd é mais propício a ganhar. Imprima no console qual time é mais provável que ganhe, sem usar if/else ou operador ternário
 
-// 'Davies', 'Muller', 'Lewandowski', e 'Kimmich'
+ 'Davies', 'Muller', 'Lewandowski', e 'Kimmich'
+ */
 
 const game = {
   team1: 'Bayern Munich',
@@ -46,7 +48,7 @@ const game = {
     ],
   ],
   score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  scored: ['Lewandowski', 'Gnabry', 'Lewandowski', 'Hummels'],
   date: 'Nov 9th, 2037',
   odds: {
     team1: 1.33,
@@ -55,22 +57,23 @@ const game = {
   },
 };
 
-const [jogadores1, jogadores2] = game.players;
+const [jogadores1, jogadores2] = game.players; // 1.1
 console.log(jogadores1, jogadores2);
 
-const [goleiro, ...jogadoresDeLinha] = jogadores1;
+const [goleiro, ...jogadoresDeLinha] = jogadores1; // 1.2
 console.log(goleiro, jogadoresDeLinha);
 
-const todosJogadores = [...jogadores1, ...jogadores2];
+const todosJogadores = [...jogadores1, ...jogadores2]; // 1.3
 console.log(todosJogadores);
 
-const jogadoresFinais = [...jogadores1, 'Thiago', 'Coutinho', 'Perisic'];
+const jogadoresFinais = [...jogadores1, 'Thiago', 'Coutinho', 'Perisic']; // 1.4
 console.log(jogadoresFinais);
 
-const { team1: time1, team2: time2, x: empate } = game.odds;
+const { team1: time1, team2: time2, x: empate } = game.odds; // 1.5
 console.log(time1, time2, empate);
 
 const imprimirGols = function (...jogadores) {
+  // 1.6
   let gols = 0;
   jogadores.forEach(jogador => {
     console.log(jogador);
@@ -80,7 +83,7 @@ const imprimirGols = function (...jogadores) {
 };
 imprimirGols(...game.scored);
 
-time1 < time2 &&
+time1 < time2 && // 1.7
   time1 < empate &&
   console.log('O time 1 tem mais chances de ganhar');
 time2 < time1 &&
@@ -89,3 +92,39 @@ time2 < time1 &&
 empate < time1 &&
   empate < time2 &&
   console.log('O empate é mais propício nesse jogo');
+
+/* DESAFIO 2
+ 2.1 - Faça um loop pelo game.scored e imprima o nome de cada jogador, juntamente com o número do gol
+
+ 2.2 - Use o loop para calcular a média de odd e imprima
+
+ 2.3 - Imprima as 3 odds no console, dessa forma:
+      Odd para o Bayern vencer: 1.33
+      Odd para empatar: 3.25
+      Odd para o Borussia vencer: 6.5
+  
+  2.4 - Crie um objeto chamado 'marcadores' que contenha o nome dos jogadores que marcaram como keys e o número de gols como values
+*/
+
+for (const [gol, jogador] of game.scored.entries()) {
+  // 2.1
+  console.log(`${gol + 1}º gol marcado por: ${jogador}`);
+}
+
+let media = 0; // 2.2
+for (const odd of Object.values(game.odds)) {
+  media += odd;
+}
+media /= Object.keys(game.odds).length;
+console.log(`A média das odds equivale a: ${media.toFixed(2)}`);
+
+for (const [team, odd] of Object.entries(game.odds)) {
+  // 2.3
+  console.log(`${game[team] ?? 'empate'} com a odd ${odd}`);
+}
+
+const marcadores = {}; // 2.4
+for (const jogador of Object.values(game.scored)) {
+  marcadores?.[jogador] ? marcadores[jogador]++ : (marcadores[jogador] = 1);
+}
+console.log(marcadores);
