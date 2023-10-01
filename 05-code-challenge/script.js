@@ -128,3 +128,45 @@ for (const jogador of Object.values(game.scored)) {
   marcadores?.[jogador] ? marcadores[jogador]++ : (marcadores[jogador] = 1);
 }
 console.log(marcadores);
+
+/* DESAFIO 3
+  3.1 - Criar um array (eventos) com os diferentes eventos que aconteceram no jogo (sem duplicatas)
+
+  3.2 - Depois que o jogo acabou, o cartão amarelo do minuto 64 foi considerado injusto. Remova essa evento dos logs de evento do jogo
+
+  3.3 - Imprima a seguinte string no console: "Um evento acontece, em média, a cada 9 minutos" (tenha em mente que o jogo tem 90 minutos)
+
+  3.4 - Faça um loop pelos eventos e os imprima no console, marcando se aconteceu no primeiro half ou no segundo, exemplo:
+    [FIRST HALF] 17' GOL
+*/
+
+const gameEvents = new Map([
+  [17, 'Gol'],
+  [36, 'Substituição'],
+  [47, 'Gol'],
+  [61, 'Substituição'],
+  [64, 'Cartão amarelo'],
+  [69, 'Cartão vermelho'],
+  [70, 'Substituição'],
+  [72, 'Substituição'],
+  [76, 'Gol'],
+  [80, 'Gol'],
+  [92, 'Cartão amarelo'],
+]);
+
+const tiposDeEventos = [...new Set(gameEvents.values())]; // 3.1
+console.log(tiposDeEventos);
+
+gameEvents.delete(64); // 3.2
+console.log(gameEvents);
+
+console.log(
+  // 3.3
+  `Um evento acontece em média a cada ${90 / gameEvents.size} minutos`
+);
+
+for (const [min, evento] of gameEvents.entries()) {
+  console.log(
+    `[${min <= 45 ? 'PRIMEIRO' : 'SEGUNDO'} TEMPO] ${min}' ${evento}`
+  );
+}
