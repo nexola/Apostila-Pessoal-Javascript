@@ -93,3 +93,9 @@ const letters = arr.concat(arr2);
 console.log(letters);
 // Join
 console.log(letters.join(' - '));
+// Método at
+const arrAt = [23, 11, 64];
+console.log(arrAt[arrAt.length - 1]);
+console.log(arrAt.at(-1));
+// Método at em strings
+console.log('Vitor'.at(-1));
