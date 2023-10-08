@@ -92,3 +92,10 @@ console.log(saques);
 // acumulador -> bola de neve
 const balanco = transacoes.reduce((acc, transacao) => acc + transacao, 0);
 console.log(balanco);
+
+// Valor máximo com reduce
+const maior = transacoes.reduce(
+  (acc, transacao) => (transacao > acc ? (acc = transacao) : acc),
+  transacoes[0]
+);
+console.log(maior);
