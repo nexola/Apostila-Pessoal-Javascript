@@ -89,3 +89,6 @@ const saques = transacoes
   .map(transacao => Math.abs(transacao));
 console.log(depositos);
 console.log(saques);
+// acumulador -> bola de neve
+const balanco = transacoes.reduce((acc, transacao) => acc + transacao, 0);
+console.log(balanco);
