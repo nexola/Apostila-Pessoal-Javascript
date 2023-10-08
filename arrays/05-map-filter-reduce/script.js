@@ -81,5 +81,11 @@ const transacaoDescricao = transacoes.map(
       transacao > 0 ? 'depositou' : 'sacou'
     } $${Math.abs(transacao)}`
 );
-
 console.log(transacaoDescricao);
+
+const depositos = transacoes.filter(transacao => transacao > 0);
+const saques = transacoes
+  .filter(transacao => transacao < 0)
+  .map(transacao => Math.abs(transacao));
+console.log(depositos);
+console.log(saques);
