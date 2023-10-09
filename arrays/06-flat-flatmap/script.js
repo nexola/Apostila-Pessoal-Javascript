@@ -62,64 +62,20 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-/////////////////////////////////////////////////
-const eurParaUsd = 1.1;
-const transacoes = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-const transacoesUSD = transacoes.map(transacao =>
-  Math.round(transacao * eurParaUsd)
-);
-console.log(transacoes);
-console.log(transacoesUSD);
-
-const transacaoDescricao = transacoes.map(
-  (transacao, i) =>
-    `Transação ${i + 1}: Você ${
-      transacao > 0 ? 'depositou' : 'sacou'
-    } $${Math.abs(transacao)}`
-);
-console.log(transacaoDescricao);
-
-const depositos = transacoes.filter(transacao => transacao > 0);
-const saques = transacoes
-  .filter(transacao => transacao < 0)
-  .map(transacao => Math.abs(transacao));
-console.log(depositos);
-console.log(saques);
-// acumulador -> bola de neve
-const balanco = transacoes.reduce((acc, transacao) => acc + transacao, 0);
-console.log(balanco);
-// Valor máximo com reduce
-const maior = transacoes.reduce(
-  (acc, transacao) => (transacao > acc ? (acc = transacao) : acc),
-  transacoes[0]
-);
-console.log(maior);
-// PIPELINE
-const totalDepositosUSD = transacoes
-  .filter(x => x > 0)
-  .map((x, i, arr) => {
-    // console.log(arr);
-    return x * eurParaUsd;
-  })
-  .reduce((acc, x) => acc + x);
-console.log(totalDepositosUSD);
-// Método FIND - Retorna o primeiro elemento que satisfaz a condição
-const primeiroSaque = transacoes.find(transacao => transacao < 0);
-console.log(primeiroSaque);
-const account = accounts.find(account => account.owner === 'Jessica Davis');
-console.log(account);
-// Método INCLUDES - Compara igualdade - Retorna boolean
-console.log(transacoes.includes(-130));
-// Método SOME - Compara condições - Retorna boolean
-const algumDeposito = transacoes.some(transacao => transacao > 0);
-console.log(algumDeposito);
-// Método EVERY - Compara se TODOS os elementos correspondem a condição - Retorna boolean
-console.log(account4.movements.every(transacoes => transacoes > 0));
-
-// Callback separado
-const deposito = transacao => transacao > 0;
-console.log(transacoes.some(deposito));
+// Flat - Junta todos os itens do array em um só
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+// Depth (parâmetro) - Indica quantos níveis o flat penetra para formar o array
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2));
+// Inserindo todas as transações em um único array com map e flat e somando tudo com reduce
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance);
+// FlatMap - Combina Flat e Map
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance2);
