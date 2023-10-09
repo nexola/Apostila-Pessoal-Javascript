@@ -33,3 +33,28 @@ const checarCaes = function (caesJulia, caesKate) {
 checarCaes(caesJulia1, caesKate1);
 console.log('----------------------------------------');
 checarCaes(caesJulia2, caesKate2);
+
+// Desafio 02
+/* Crie uma função chamada 'calcIdadeHumana', que aceita array de idades de cães e faça o seguinte:
+- Calcule a idade canina em anos humanos usando a fórmula:
+-- Se o cão tiver <= 2 anos (idadeHumana = 2 * idadeCao)
+-- Se o cão tiver > 2 anos (idadeHumana = 16 + idadeCao * 4)
+
+- Exclua todos os cães que tiverem menos que 18 anos de idade humana
+
+- Calcule a média de idade humana de todos os cães adultos */
+
+const idadesCaes1 = [5, 2, 4, 1, 15, 8, 3];
+const idadesCaes2 = [16, 6, 10, 5, 6, 1, 4];
+
+const calcIdadeHumana = function (idadesCaes) {
+  return Math.round(
+    idadesCaes
+      .map(idadeCao => (idadeCao <= 2 ? 2 * idadeCao : 16 + idadeCao * 4))
+      .filter(idadeCao => idadeCao >= 18)
+      .reduce((acc, idadeCao, i, arr) => acc + idadeCao / arr.length, 0)
+  );
+};
+
+console.log(calcIdadeHumana(idadesCaes1));
+console.log(calcIdadeHumana(idadesCaes2));
