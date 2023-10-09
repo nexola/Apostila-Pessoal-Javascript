@@ -92,10 +92,30 @@ console.log(saques);
 // acumulador -> bola de neve
 const balanco = transacoes.reduce((acc, transacao) => acc + transacao, 0);
 console.log(balanco);
-
 // Valor máximo com reduce
 const maior = transacoes.reduce(
   (acc, transacao) => (transacao > acc ? (acc = transacao) : acc),
   transacoes[0]
 );
 console.log(maior);
+// PIPELINE
+const totalDepositosUSD = transacoes
+  .filter(x => x > 0)
+  .map((x, i, arr) => {
+    // console.log(arr);
+    return x * eurParaUsd;
+  })
+  .reduce((acc, x) => acc + x);
+console.log(totalDepositosUSD);
+// Método FIND - Retorna o primeiro elemento que satisfaz a condição
+const primeiroSaque = transacoes.find(transacao => transacao < 0);
+console.log(primeiroSaque);
+const account = accounts.find(account => account.owner === 'Jessica Davis');
+console.log(account);
+// Método INCLUDES - Compara igualdade - Retorna boolean
+console.log(transacoes.includes(-130));
+// Método SOME - Compara condições - Retorna boolean
+const algumDeposito = transacoes.some(transacao => transacao > 0);
+console.log(algumDeposito);
+// Método EVERY - Compara se TODOS os elementos correspondem a condição - Retorna boolean
+console.log(account4.movements.every(transacoes => transacoes > 0));
