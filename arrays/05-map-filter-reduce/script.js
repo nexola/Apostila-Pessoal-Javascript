@@ -123,3 +123,17 @@ console.log(account4.movements.every(transacoes => transacoes > 0));
 // Callback separado
 const deposito = transacao => transacao > 0;
 console.log(transacoes.some(deposito));
+
+// Sort
+// return < 0, A, B (manter ordem)
+// return > 0, B, A (trocar ordem)
+// Crescente
+// transacoes.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+// });
+transacoes.sort((a, b) => a - b);
+console.log(transacoes);
+// Decrescente
+transacoes.sort((a, b) => b - a);
+console.log(transacoes);
